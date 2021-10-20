@@ -6,6 +6,9 @@ namespace Algorithm
     {
         static void Main(string[] args)
         {
+            Board board = new Board();
+            board.Initialize();
+
             Console.CursorVisible = false;
 
             const int WAIT_TICK = 1000 / 30;
@@ -24,6 +27,9 @@ namespace Algorithm
                 lastTick = currentTick;
                 #endregion
 
+                // 입력
+                // 로직
+                // 렌더링
                 Console.SetCursorPosition(0, 0);
 
                 for (int i = 0; i < 25; i++)
