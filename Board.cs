@@ -6,46 +6,65 @@ using System.Threading.Tasks;
 
 namespace Algorithm
 {
-    class MyList<T>
+    class MyLinkedListNode<T>
     {
-        const int DEFAULT_SIZE = 1;
-        T[] items = new T[DEFAULT_SIZE];
+        public T Data;
+        public MyLinkedListNode<T> Next;
+        public MyLinkedListNode<T> Prev;
+    }
 
+    class MyLinkedList<T>
+    {
+        public MyLinkedListNode<T> Head = null;
+        public MyLinkedListNode<T> Tail = null;
         public int Count = 0;
-        public int Capacity { get { return items.Length; } }
 
         // O(1)
-        public void Add(T item)
+        public MyLinkedListNode<T> AddLast(T data)
         {
-            if (Count >= Capacity)
+            MyLinkedListNode<T> newRoom = new MyLinkedListNode<T>();
+            newRoom.Data = data;
+
+            if (null == Head)
             {
-                T[] newArray = new T[Count * 2];
-                for (int i = 0; i < Count; ++i)
-                {
-                    newArray[i] = items[i];
-                }
-                items = newArray;
+                Head = newRoom;
             }
 
-            items[Count] = item;
+            if (Tail != null)
+            {
+                Tail.Next = newRoom;
+                newRoom.Prev = Tail;
+            }
+
+            Tail = newRoom;
             ++Count;
+
+            return newRoom;
         }
 
         // O(1)
-        public T this[int index]
+        public void Remove(MyLinkedListNode<T> room)
         {
-            get { return items[index]; }
-            set { items[index] = value; }
-        }
-
-        // O(N)
-        public void RemoveAt(int index)
-        {
-            for (int i = index; i < Count - 1; ++i)
+            if (Head == room)
             {
-                items[i] = items[i + 1];
+                Head = Head.Next;
             }
-            items[Count - 1] = default;
+
+            if (Tail == room)
+            {
+                Tail = Tail.Prev;
+            }
+
+            if (room.Prev != null)
+            {
+                room.Prev.Next = room.Next;
+            }
+
+            if (room.Next != null)
+            {
+                room.Next.Prev = room.Prev;
+            }
+
             --Count;
         }
     }
@@ -53,20 +72,17 @@ namespace Algorithm
     class Board
     {
         public int[] _data = new int[25];
-        public MyList<int> _data2 = new MyList<int>();
         public LinkedList<int> _data3 = new LinkedList<int>();
 
         public void Initialize()
         {
-            _data2.Add(101);
-            _data2.Add(102);
-            _data2.Add(103);
-            _data2.Add(104);
-            _data2.Add(105);
+            _data3.AddLast(101);
+            _data3.AddLast(102);
+            LinkedListNode<int> node = _data3.AddLast(103);
+            _data3.AddLast(104);
+            _data3.AddLast(105);
 
-            int temp = _data2[2];
-
-            _data2.RemoveAt(2);
+            _data3.Remove(node);
         }
     }
 }
