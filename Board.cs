@@ -48,7 +48,6 @@ namespace Algorithm
             }
 
             // 랜덤으로 우측 혹은 아래로 길을 뚫는 작업.
-            // Binary Tree Algorithm.
             Random rand = new Random();
             for (int y = 0; y < _size; ++y)
             {
