@@ -13,6 +13,9 @@ namespace Algorithm
         public TileType[,] Tile { get; private set; }
         public int Size { get; private set; }
 
+        public int DstY { get; private set; }
+        public int DstX { get; private set; }
+
         Player _player;
 
         public enum TileType
@@ -32,6 +35,9 @@ namespace Algorithm
 
             Tile = new TileType[size, size];
             Size = size;
+
+            DstY = Size - 2;
+            DstX = Size - 2;
 
             //GenerateByBinaryTree();
             GenerateBySideWinder();
@@ -157,6 +163,10 @@ namespace Algorithm
                     if (y == _player.PosY && x == _player.PosX)
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
+                    }
+                    else if (y == DstY && x == DstX)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                     }
                     else
                     {
